@@ -140,7 +140,20 @@ Top 2 results for "I want my money back":
 
 ### Results stored in the database
 
-TODO: screenshot / query result from the `document_chunks` table.
+The `document_chunks` table in PostgreSQL (Supabase SQL editor), showing the 13 paragraph chunks of
+the sample PDF, each with a 768-dimensional embedding:
+
+```sql
+SELECT id, filename, split_strategy, chunk_index,
+       left(chunk_text, 70) AS chunk_preview,
+       vector_dims(embedding) AS dims,
+       created_at
+FROM document_chunks
+WHERE split_strategy = 'paragraph'
+ORDER BY chunk_index;
+```
+
+![document_chunks table](docs/supabase_table.png)
 
 ## Chunking strategies
 
